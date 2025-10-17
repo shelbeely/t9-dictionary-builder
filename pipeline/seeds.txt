@@ -1,0 +1,21 @@
+llm
+langchain
+rag
+retrieval
+embedding
+vector database
+openai
+pytorch
+diffusion
+lora
+prompt engineering
+vibe
+coding
+stable diffusion
+guardrails
+mcp
+agent
+agents
+mistral
+qwen
+gemma

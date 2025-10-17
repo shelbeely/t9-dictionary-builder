@@ -1,0 +1,45 @@
+# .github/workflows/build-dictionary.yml
+name: Build T9 Dictionary (XL + LGBTQ)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * 1"  # Mondays 09:17 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build dictionary
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STACKEX_TOKEN: ${{ secrets.STACKEX_TOKEN }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_SECRET: ${{ secrets.REDDIT_SECRET }}
+        run: |
+          python pipeline/build_dict.py
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(dict): update XL T9 dictionary (with LGBTQ slang)"
+          file_pattern: |
+            dist/*.*
+            .cache/*.json

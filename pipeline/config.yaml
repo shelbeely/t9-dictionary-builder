@@ -1,0 +1,85 @@
+trends:
+  geo: "US"
+  timeframe: "today 3-m"
+  related_top_k: 10
+
+ecosystem:
+  enable_pypi: true
+  enable_npm: true
+  pypi_packages_extra: ["langchain","llama-index","transformers","datasets","sentence-transformers","faiss-cpu","chromadb"]
+  npm_packages_extra: ["langchain","langchain-openai","@tensorflow/tfjs","ml5"]
+
+huggingface:
+  enable: true
+  max_models: 2000
+  sort: "downloads"
+  token_env: "HF_TOKEN"
+
+github:
+  enable: true
+  token_env: "GITHUB_TOKEN"
+  topics: ["ai","machine-learning","llm","langchain","vector-database","rag"]
+  per_topic_repos: 50
+  pull_readme: true
+
+stackoverflow:
+  enable: true
+  top_n_tags: 500
+  site: "stackoverflow"
+  key_env: "STACKEX_TOKEN"
+
+cratesio:
+  enable: true
+  top_n: 1000
+
+wikipedia:
+  enable: true
+  project: "en.wikipedia"
+  access: "all-access"
+  year: 2024
+  month: 12
+  top_n_articles: 1000
+
+lgbtq_slang:
+  enable: true
+  base_weight: 0.7
+  urls:
+    - "https://www.glaad.org/reference/terms/"
+    - "https://en.wikipedia.org/wiki/LGBTQ_slang"
+    # add more public glossaries here as needed
+
+reddit:
+  enable: false
+  client_id_env: "REDDIT_CLIENT_ID"
+  client_secret_env: "REDDIT_SECRET"
+  user_agent: "shelbee-dict-bot/1.0"
+  subs: ["NonBinary","lgbt","asktransgender"]
+  max_posts_per_sub: 300
+
+english:
+  enable: true
+  top_n: 40000
+  weight: 0.25
+
+weights:
+  trends: 0.20
+  ecosystem: 0.15
+  huggingface: 0.20
+  github: 0.12
+  stackoverflow: 0.07
+  cratesio: 0.05
+  wikipedia: 0.03
+  lgbtq_slang: 0.15
+  reddit: 0.03
+  english: 0.25
+
+compile:
+  max_candidates_per_signature: 12
+  min_len: 2
+  max_len: 32
+  allow_hyphen: false
+  allow_digits: false
+
+output:
+  dir: "dist"
+  basename: "t9"
